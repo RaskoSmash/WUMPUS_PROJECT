@@ -68,6 +68,8 @@ game::STATE game::MainMenu()
 		return ABOUT;
 	case 4:
 		return SPLASH;
+	default:
+		return MAIN;
 	}
 }
 

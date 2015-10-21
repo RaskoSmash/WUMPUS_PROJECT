@@ -14,11 +14,12 @@ namespace game
 	public:
 		player(void);
 		void update();
-		int getRoom();
+	//	int getRoom();
 		int getArrowCount();
+		bool shootArrow();
 		void movement();
-		stg::string getName();
-		stg::string setName();
+	//	stg::string getName();
+	//	stg::string setName();
 	};
 
 	class Room
@@ -56,13 +57,13 @@ namespace game
 
 	void Splash();
 
-	void Exit();
+	//void Exit();
 
-	void Win();
+	//void Win();
 
-	void Lose();
+	//void Lose();
 
-	void About();
+	//void About();
 
 	void CreateMap();
 

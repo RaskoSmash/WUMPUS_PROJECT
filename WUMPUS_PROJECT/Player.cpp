@@ -40,6 +40,16 @@ void game::player::update()
 
 }
 
+int game::player::getArrowCount()
+{
+	return arrow_count;
+}
+
+bool game::player::shootArrow()
+{
+	return false;
+}
+
 void game::player::movement()
 {
 	int move;
