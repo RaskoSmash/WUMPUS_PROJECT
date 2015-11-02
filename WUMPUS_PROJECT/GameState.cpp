@@ -7,7 +7,7 @@
 #include "sfwdraw.h"
 
 using namespace std;
-
+//extern game::Cave room[20];
 extern bool startOnce;
 
 int game::getInput(int min, int max)
@@ -49,6 +49,25 @@ void game::Splash()
 	system("pause");
 }
 
+game::STATE game::Exit()
+{
+	int choice = -1;
+	cout << "You have left the game." << endl;
+	cout << "Do you want to restart?" << endl << "1 for yes, 0 for no: ";
+	cin >> choice;
+
+	switch (choice)
+	{
+	case 0:
+		return EXIT; break;
+	case 1:
+		return MAIN; break;
+	default:
+		return Exit();
+	}
+	startOnce = true;
+}
+
 game::STATE game::MainMenu()
 {
 	system("cls");
@@ -61,7 +80,8 @@ game::STATE game::MainMenu()
 	switch (game::getInput(1,4))
 	{
 	case 1:
-		return PLAY;
+	//	startOnce = true;
+		return GAME;
 	case 2:
 		return EXIT;
 	case 3:
@@ -73,15 +93,10 @@ game::STATE game::MainMenu()
 	}
 }
 
-game::Room::Room(void)
-{
-	isWumpus = false;
-	isTrap = false;
-	isBat = false;
-	isStartingRoom = false;
-}
+game::Cave::Cave(void): isWumpus(false), isTrap(false), isBat(false), isStartingRoom(false), isArrow(false)
+{}
 
-void game::Room::setAdjacentRooms(int room1, int room2, int room3, int newRoomID)
+void game::Cave::setAdjacentRooms(Cave room[],int room1, int room2, int room3, int newRoomID)
 {
 	RoomID = newRoomID;
 	adjacentRooms[0] = &room[room1 - 1];
@@ -91,24 +106,54 @@ void game::Room::setAdjacentRooms(int room1, int room2, int room3, int newRoomID
 
 
 
-int game::Room::getRoomID()
+//Cave game::Cave::getRoomID(Cave room[], player player1)
+//{
+//
+//	return room[player1.getRoom()];
+
+//}
+bool game::Cave::getIsWumpus()
 {
-	return RoomID;
+	return isWumpus;
 }
 
-game::Room game::Room::getRoom1()
+bool game::Cave::getIsBat()
 {
-	return room[adjacentRooms[0]->getRoomID() -1];
+	return isBat;
 }
 
-game::Room game::Room::getRoom2()
+bool game::Cave::getIsTrap()
+{
+	return isTrap;
+}
+
+bool game::Cave::getIsArrow()
+{
+	return isArrow;
+}
+
+void game::Cave::setArrow(bool shoot)
+{
+	isArrow = shoot;
+}
+
+void game::Cave::setWumpus(bool change)
+{
+	isWumpus = change;
+}
+
+game::Cave game::Cave::getRoom1(Cave room[])
+{
+	return room[adjacentRooms[0]->getRoomID() - 1];
+
+}
+game::Cave game::Cave::getRoom2(Cave room[])
 {
 	return room[adjacentRooms[1]->getRoomID() - 1];
 }
 
-game::Room game::Room::getRoom3()
+game::Cave game::Cave::getRoom3(Cave room[])
 {
 	return room[adjacentRooms[2]->getRoomID() - 1];
 }
-
 
